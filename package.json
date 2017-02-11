@@ -9,7 +9,7 @@
   "author": "Marco Ramirez",
   "license": "MIT",
   "devDependencies": {
-    "babel-plugin-istanbul": "git://github.com/marco-ramirez/babel-plugin-istanbul.git#4949adeec1052fd98faeffd90d4f9ddf0b9f6e9c",
+    "babel-plugin-istanbul": "git://github.com/marco-ramirez/babel-plugin-istanbul.git#20ee6000a8766b54f74309d1269dcebc82e5eaa9",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-node6": "^11.0.0",
     "babel-register": "^6.22.0",

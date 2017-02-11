@@ -6,10 +6,14 @@ import Mocha from 'mocha';
 import path from 'path';
 import {Collector, Reporter} from 'istanbul';
 
+const coverage = {};
+
 const babelOptions = {
     presets: ['node6'],
     plugins: [
-        ['istanbul', {includeUntested: true}]
+        ['istanbul', {
+            onCover: (file, fileCoverage) => coverage[file] = fileCoverage
+        }]
     ]
 };
 
@@ -17,6 +21,7 @@ const report = () => {
     const reporter = new Reporter();
     const collector = new Collector();
     reporter.add('text');
+    collector.add(coverage);
     collector.add(global.__coverage__);
     reporter.write(collector, false, () => {});
 };
