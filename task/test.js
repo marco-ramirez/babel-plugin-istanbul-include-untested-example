@@ -6,13 +6,11 @@ import Mocha from 'mocha';
 import path from 'path';
 import {Collector, Reporter} from 'istanbul';
 
-const coverage = {};
-
 const babelOptions = {
     presets: ['node6'],
     plugins: [
         ['istanbul', {
-            onCover: (file, fileCoverage) => coverage[file] = fileCoverage
+            onCover: (file, fileCoverage) => global.__coverage__[file] = fileCoverage
         }]
     ]
 };
@@ -21,7 +19,6 @@ const report = () => {
     const reporter = new Reporter();
     const collector = new Collector();
     reporter.add('text');
-    collector.add(coverage);
     collector.add(global.__coverage__);
     reporter.write(collector, false, () => {});
 };
@@ -35,6 +32,7 @@ const runTests = () => {
 };
 
 glob('src/**/*.js', (error, files) => {
+    global.__coverage__ = {};
     const instrument = filename =>
         transform(fs.readFileSync(filename, {encoding: 'utf8'}), {...babelOptions, filename}).code;
     const cache = files.reduce((map, file) => {
